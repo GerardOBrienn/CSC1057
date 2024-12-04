@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* Logo or Company Name styling */
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: 40px;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(128, 0, 128, 0.8); /* Purple shadow */
+        }
+
+        .navbar .logo span {
+            color: white; /* Ensure the color is white */
+        }
+
+        .navbar a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .order-list {
+            margin-top: 20px;
+        }
+
+        .order-item {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-item h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .order-item p {
+            margin: 5px 0;
+        }
+
+        .actions a {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .actions a:hover {
+            background-color: #555;
+        }
+
+        form {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <span>The</span> Tech Wizards
+        </div>
+        <a href="{% url 'homepage' %}">Home</a>
+        <a href="{% url 'dashboard-product' %}">Products</a>
+        <a href="{% url 'dashboard-order' %}">Orders</a>
+        <a href="{% url 'dashboard-staff' %}">Staff</a>
+        <a href="{% url 'customer-list' %}">Customers</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Orders</h1>
+
+        <!-- List of Orders -->
+        <div class="order-list">
+            {% for order in orders %}
+                <div class="order-item">
+                    <h3>Order for: {{ order.product.name }}</h3>
+                    <p>Ordered by: {{ order.staff.username }}</p>
+                    <p>Quantity: {{ order.order_quantity }}</p>
+                    <p>Price: ${{ order.product.price }}</p>
+                    <p>Status: {{ order.status }}</p>  <!-- Assuming there's a status field in the Order model -->
+                    <p>Placed on: {{ order.date_ordered }}</p>
+                    <div class="actions">
+                        <a href="{% url 'dashboard-track-order' order.id %}">Track Order</a>
+                        <a href="{% url 'dashboard-order-delete' order.id %}">Delete Order</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No orders found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Order Placement Form -->
+        <div class="order-form">
+            <h2>Place a New Order</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

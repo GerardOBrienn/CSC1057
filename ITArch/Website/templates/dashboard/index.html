@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* Logo or Company Name styling */
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-right: 40px;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(128, 0, 128, 0.8); /* Purple shadow */
+        }
+
+        .navbar .logo span {
+            color: white; /* Ensure the color is white */
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Container and general layout styling */
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .stats div {
+            background-color: #fff;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stats div h2 {
+            margin: 0;
+        }
+
+        /* Section for Available Products (converted to product boxes) */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .product-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-box:hover {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-box h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .product-box p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .actions {
+            margin-top: 15px;
+        }
+
+        .actions a {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .actions a:hover {
+            background-color: #555;
+        }
+
+        /* Form Styling */
+        form {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+
+        /* Banner styling */
+        .banner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main-banner {
+            width: 100%;
+            height: 300px;
+            background-image: url('{{ MEDIA_URL }}product_images/BlackFridayITArch.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px red;
+        }
+
+        .sub-banner-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .sub-banner {
+            width: 30%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px red
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <span>The</span> Tech Wizards
+        </div>
+        <a href="{% url 'homepage' %}">Home</a>
+        <a href="{% url 'dashboard-product' %}">Products</a>
+        <a href="{% url 'dashboard-order' %}">Orders</a>
+        <a href="{% url 'dashboard-staff' %}">Staff</a>
+        <a href="{% url 'customer-list' %}">Customers</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Welcome, {{ user.username }}!</h1>
+
+        <!-- Promotional Banners -->
+        <div class="banner-container">
+            <!-- Black Friday Banner -->
+            <div class="main-banner">
+                Black Friday Deals are Here!
+            </div>
+
+            <!-- Sub Banners -->
+            <div class="sub-banner-container">
+                <!-- Money Guarantee Banner -->
+                <div class="sub-banner" style="background-image: url('{{ MEDIA_URL }}product_images/refundpolicyITArch.jpg');">
+                    Money-Back Guarantee
+                </div>
+                
+                <!-- Headphones Deal Banner -->
+                <div class="sub-banner" style="background-image: url('{{ MEDIA_URL }}product_images/HeadphonesITArch.png');">
+                    Amazing Headphones Deals
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats">
+            <div>
+                <h2>{{ order_count }}</h2>
+                <p>Total Orders</p>
+            </div>
+            <div>
+                <h2>{{ product_count }}</h2>
+                <p>Total Products</p>
+            </div>
+            <div>
+                <h2>{{ workers_count }}</h2>
+                <p>Total Workers</p>
+            </div>
+        </div>
+
+        <!-- Available Products Section (Converted to product boxes) -->
+        <div class="product-list">
+            {% for product in products %}
+                <div class="product-box">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    {% else %}
+                        <img src="/path/to/default/image.jpg" alt="Default Image" class="product-image">
+                    {% endif %}
+                    <h3>{{ product.name }}</h3>
+                    <p>Category: {{ product.category }}</p>
+                    <p>Quantity: {{ product.quantity }}</p>
+                    <div class="actions">
+                        <a href="{% url 'dashboard-product-update' product.id %}">Update</a>
+                        <a href="{% url 'dashboard-product-delete' product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Recent Orders Section -->
+        <div class="dashboard-section">
+            <h2>Recent Orders</h2>
+            <ul>
+                {% for order in orders %}
+                    <li>Order for {{ order.product.name }} - Quantity: {{ order.order_quantity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Order Placement Form -->
+        <div class="dashboard-section">
+            <h2>Place a New Order</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
