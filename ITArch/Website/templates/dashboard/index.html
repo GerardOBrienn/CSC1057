@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
 
-        /* Navbar styling */
+        
         .navbar {
             background-color: #333;
             overflow: hidden;
@@ -22,18 +22,18 @@
             padding: 0 20px;
         }
 
-        /* Logo or Company Name styling */
+        
         .navbar .logo {
             font-size: 24px;
             font-weight: bold;
             color: #fff;
             margin-right: 40px;
             font-family: 'Arial', sans-serif;
-            text-shadow: 2px 2px 4px rgba(128, 0, 128, 0.8); /* Purple shadow */
+            text-shadow: 2px 2px 4px rgba(128, 0, 128, 0.8); 
         }
 
         .navbar .logo span {
-            color: white; /* Ensure the color is white */
+            color: white; 
         }
 
         .navbar a {
@@ -50,7 +50,7 @@
             color: black;
         }
 
-        /* Container and general layout styling */
+        
         .container {
             padding: 20px;
         }
@@ -77,7 +77,7 @@
             margin: 0;
         }
 
-        /* Section for Available Products (converted to product boxes) */
+       
         .product-list {
             display: flex;
             flex-wrap: wrap;
@@ -135,7 +135,7 @@
             background-color: #555;
         }
 
-        /* Form Styling */
+       
         form {
             margin-top: 40px;
             text-align: center;
@@ -153,7 +153,7 @@
             background-color: #555;
         }
 
-        /* Banner styling */
+        
         .banner-container {
             display: flex;
             flex-direction: column;
@@ -202,7 +202,7 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    
     <div class="navbar">
         <div class="logo">
             <span>The</span> Tech Wizards
@@ -215,32 +215,32 @@
         <a href="{% url 'logout' %}">Logout</a>
     </div>
 
-    <!-- Main Content -->
+  
     <div class="container">
         <h1>Welcome, {{ user.username }}!</h1>
 
-        <!-- Promotional Banners -->
+       
         <div class="banner-container">
-            <!-- Black Friday Banner -->
+            
             <div class="main-banner">
                 Black Friday Deals are Here!
             </div>
 
-            <!-- Sub Banners -->
+            
             <div class="sub-banner-container">
-                <!-- Money Guarantee Banner -->
+                
                 <div class="sub-banner" style="background-image: url('{{ MEDIA_URL }}product_images/refundpolicyITArch.jpg');">
                     Money-Back Guarantee
                 </div>
                 
-                <!-- Headphones Deal Banner -->
+                
                 <div class="sub-banner" style="background-image: url('{{ MEDIA_URL }}product_images/HeadphonesITArch.png');">
                     Amazing Headphones Deals
                 </div>
             </div>
         </div>
 
-        <!-- Stats Section -->
+
         <div class="stats">
             <div>
                 <h2>{{ order_count }}</h2>
@@ -256,7 +256,7 @@
             </div>
         </div>
 
-        <!-- Available Products Section (Converted to product boxes) -->
+      
         <div class="product-list">
             {% for product in products %}
                 <div class="product-box">
@@ -276,7 +276,7 @@
             {% endfor %}
         </div>
 
-        <!-- Recent Orders Section -->
+    
         <div class="dashboard-section">
             <h2>Recent Orders</h2>
             <ul>
@@ -286,7 +286,7 @@
             </ul>
         </div>
 
-        <!-- Order Placement Form -->
+
         <div class="dashboard-section">
             <h2>Place a New Order</h2>
             <form method="POST">
